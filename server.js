@@ -8,6 +8,20 @@ const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
+const config = require('./config/config');
+
+mongoose.Promise = global.Promise;
+
+mongoose.connect(config.mlab)
+    .then(()=>{
+        console.log(`Successfully connected to mongo db`);
+    })
+    .catch((err)=>{
+        console.log(`Failed to connect to mongodb.. `);
+        console.log(err);
+    })
+;
+
 
 const app = express();
 
@@ -62,7 +76,7 @@ app.use(validator({
 app.use(function(req,res,next){
     res.locals.success = req.flash('success');
     res.locals.error = req.flash('error');
-    res.locals.msg = req.flash('msg');
+    res.locals.message = req.flash('message');
     next();
 });
 
