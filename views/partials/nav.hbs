@@ -6,6 +6,10 @@
         <a class="p-2 text-dark" href="#" style="text-decoration:none">Support</a>
         <a class="p-2 text-dark" href="/profile" style="text-decoration:none">Profile</a>
       </nav>
+      {{#if user }}
+      <a class="ml-1 btn btn-outline-secondary" href="/logout">Log Out</a>
+      {{else}}
       <a class="btn btn-outline-primary" href="/signup">Sign Up</a>
       <a class="ml-1 btn btn-outline-warning" href="/signin">Sign In</a>
+      {{/if}}
     </div>

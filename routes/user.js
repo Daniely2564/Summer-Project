@@ -80,14 +80,7 @@ passport.use(new LocalStrategy(
     }
 ));
 
-router.route('/signin')
-    .get((req,res)=>{
-        res.render('main/signin');
-    })
-    .post((req,res)=>{
-        
-    })
-;
+
 
 passport.serializeUser(function(user,done){
     done(null, user.id);
@@ -98,5 +91,26 @@ passport.deserializeUser(function(id, done){
         done(err,user);
     });
 });
+
+router.route('/signin')
+    .get((req,res)=>{
+        res.render('main/signin');
+    })
+    .post(passport.authenticate('local',{
+        successRedirect:'/',
+        failureRedirect:'/login',
+        failureFlash:true
+    }),
+    function(req,res){
+        res.redirect('/');
+    });
+;
+
+router.get('/logout', function(req,res){
+    req.logout();
+    req.flash('success','You are logged out');
+    res.redirect('/signin');
+});
+
 
 module.exports = router;
