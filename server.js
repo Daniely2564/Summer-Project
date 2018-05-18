@@ -85,8 +85,10 @@ app.use(function(req,res,next){
 // routes
 const indexRouter = require('./routes/index');
 const userRouter = require('./routes/user');
+const groupRouter = require('./routes/group');
 app.use('/',indexRouter);
 app.use('/',userRouter);
+app.use('/group',groupRouter);
 
 
 
